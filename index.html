@@ -18,9 +18,52 @@
         align-items: center;
         height: 100%;
       }
+      #name-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.6);
+        font-family: sans-serif;
+      }
+      #name-box {
+        background: #16213e;
+        padding: 32px;
+        border-radius: 8px;
+        text-align: center;
+        color: #ffffff;
+      }
+      #name-input {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+        margin: 16px 0 8px;
+        font-size: 16px;
+      }
+      #start-button {
+        padding: 8px 24px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #name-error {
+        color: #ff6b6b;
+        min-height: 20px;
+        margin: 8px 0 0;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
     <div id="app"></div>
+    <div id="name-overlay">
+      <div id="name-box">
+        <h1>Flappy Penguin Multiplayer</h1>
+        <input id="name-input" type="text" placeholder="Enter a name" maxlength="20" autocomplete="off" />
+        <button id="start-button">Start Game</button>
+        <p id="name-error"></p>
+      </div>
+    </div>
   </body>
 </html>

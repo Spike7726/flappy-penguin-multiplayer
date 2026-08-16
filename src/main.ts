@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 import { PlayScene } from "./scenes/PlayScene";
+import { promptName } from "./ui/namePrompt";
+import { getGameInfo, leaveGame } from "./network";
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -19,4 +21,20 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [PlayScene],
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
+
+async function beginRound(): Promise<void> {
+  const gameInfo = await getGameInfo();
+  const playScene = game.scene.getScene("play") as PlayScene;
+  playScene.setWorldInfo(gameInfo.SERVER_SEED, gameInfo.SERVER_START_TIME);
+
+  await promptName();
+  playScene.startPlaying(handleDeath);
+}
+
+function handleDeath(): void {
+  leaveGame();
+  void beginRound();
+}
+
+beginRound();

@@ -4,13 +4,12 @@ const socket = io("http://localhost:3000");
 
 socket.on("connect", () => {
   console.log("Connected to server, id:", socket.id);
-  socket.emit("ping");
-});
-
-socket.on("pong", () => {
-  console.log("Received pong back from server — round trip works!");
-  socket.disconnect();
-  process.exit(0);
+  
+  socket.emit("join", "TestPlayer", (result: { success: boolean; reason?: string }) => {
+    console.log("Join result:", result);
+    socket.disconnect();
+    process.exit(0);
+  });
 });
 
 socket.on("connect_error", (err) => {
